@@ -5,7 +5,7 @@ import Orb from '../components/Orb';
 import Navbar from '../components/Navbar';
 import TargetCursor from '../components/TargetCursor';
 import SplashCursor from '../components/SplashCursor';
-import WhyChooseUs from '../components/WhyChooseUs';
+//import WhyChooseUs from '../components/WhyChooseUs';
 import Testimonials from '../components/Testimonials';
 import ContactUs from '../components/ContactUs';
 import Footer from '../components/Footer';
@@ -107,7 +107,7 @@ export default function Home() {
       <Navbar />
       
       {/* Hero Section with Orb Background */}
-      <section className="snap-start" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
+      <section id="home" className="snap-start" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
         
         {/* Orb Background */}
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
@@ -122,40 +122,6 @@ export default function Home() {
 
         {/* Content */}
         <div style={{ position: 'relative', zIndex: 10, maxWidth: 800, margin: '0 auto', padding: '0 24px', textAlign: 'center', pointerEvents: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '10px',
-              padding: '6px 16px 6px 6px',
-              borderRadius: '999px',
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              marginBottom: '32px',
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)'
-            }}
-          >
-            <span style={{
-              background: '#fff',
-              color: '#000',
-              padding: '2px 10px',
-              borderRadius: '999px',
-              fontSize: '12px',
-              fontWeight: 700,
-              letterSpacing: '0.02em',
-            }}>NEW</span>
-            <span style={{
-              color: '#A1A1A8',
-              fontSize: '14px',
-              fontWeight: 500,
-            }}>Just shipped v2.0</span>
-          </motion.div>
 
           {/* Headline */}
           <motion.h1
@@ -168,13 +134,31 @@ export default function Home() {
               color: '#ffffff',
               lineHeight: 1.15,
               letterSpacing: '-0.02em',
-              marginBottom: '40px',
+              marginBottom: '24px',
               textShadow: '0 4px 24px rgba(0,0,0,0.5)',
               pointerEvents: 'auto'
             }}
           >
-            This orb is hiding<br />something, try hovering!
+            Engineering the Next <br />Digital Frontier
           </motion.h1>
+
+          {/* Subheading */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+            style={{
+              fontSize: 'clamp(16px, 2vw, 20px)',
+              color: 'rgba(255, 255, 255, 0.7)',
+              lineHeight: 1.6,
+              maxWidth: '600px',
+              margin: '0 auto 40px auto',
+              textAlign: 'center',
+              pointerEvents: 'auto'
+            }}
+          >
+            RanVith delivers cutting-edge software, AI solutions, and scalable systems for modern businesses.
+          </motion.p>
 
           {/* CTAs */}
           <motion.div
@@ -184,6 +168,7 @@ export default function Home() {
             style={{ display: 'flex', gap: '16px', justifyContent: 'center', pointerEvents: 'auto' }}
           >
             <button
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               style={{
                 background: '#fff',
                 color: '#000',
@@ -198,10 +183,11 @@ export default function Home() {
               onMouseEnter={e => { e.currentTarget.style.opacity = '0.9'; e.currentTarget.style.transform = 'scale(0.98)'; }}
               onMouseLeave={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.transform = 'scale(1)'; }}
             >
-              Get started
+              Contact Us
             </button>
 
             <button
+              onClick={() => document.getElementById('our-services')?.scrollIntoView({ behavior: 'smooth' })}
               style={{
                 background: 'rgba(255, 255, 255, 0.03)',
                 color: '#fff',
@@ -394,8 +380,9 @@ export default function Home() {
         </AnimatePresence>
       </section>
 
-      {/* Why Choose Us Section */}
-      <WhyChooseUs />
+      {/* Why Choose Us Section 
+     <WhyChooseUs />
+     */}
 
       {/* Contact Section */}
       <ContactUs />

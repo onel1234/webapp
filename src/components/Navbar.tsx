@@ -1,12 +1,5 @@
-import { useState } from 'react';
-
-const BrandIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5">
-    <ellipse cx="12" cy="12" rx="10" ry="3" transform="rotate(30 12 12)" />
-    <ellipse cx="12" cy="12" rx="10" ry="3" transform="rotate(90 12 12)" />
-    <ellipse cx="12" cy="12" rx="10" ry="3" transform="rotate(150 12 12)" />
-  </svg>
-);
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const MenuIcon = ({ isOpen }: { isOpen: boolean }) => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -27,14 +20,66 @@ const MenuIcon = ({ isOpen }: { isOpen: boolean }) => (
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = (e: Event) => {
+      const target = e.target as HTMLElement;
+      const currentScrollY = target.scrollTop;
+      
+      if (currentScrollY > lastScrollY && currentScrollY > 50) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+      setLastScrollY(currentScrollY);
+    };
+
+    // The container that scrolls is the main div in Home.tsx
+    // Since Navbar is inside that div, we can find the closest scrollable container
+    // or just attach the event to the document but with capturing phase if bubbling.
+    // In this app structure, adding an event listener to the scrolling div is best.
+    const scrollContainer = document.querySelector('.snap-y');
+    if (scrollContainer) {
+      scrollContainer.addEventListener('scroll', handleScroll);
+    } else {
+      window.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      if (scrollContainer) {
+        scrollContainer.removeEventListener('scroll', handleScroll);
+      } else {
+        window.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, [lastScrollY]);
+
+  const handleNavClick = (sectionId: string) => (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    const section = document.getElementById(sectionId);
+    if (!section) return;
+
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setIsMobileMenuOpen(false);
+  };
 
   return (
-    <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, display: 'flex', justifyContent: 'center' }}>
-      <nav
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          width: '100%',
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div 
+          initial={{ y: -100, opacity: 0, scale: 0.95 }}
+          animate={{ y: 0, opacity: 1, scale: 1 }}
+          exit={{ y: -100, opacity: 0, scale: 0.95 }}
+          transition={{ type: 'spring', stiffness: 300, damping: 20, bounce: 0.4 }}
+          style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, display: 'flex', justifyContent: 'center' }}
+        >
+          <nav
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
           maxWidth: '680px',
           margin: '24px 24px 0',
           padding: '8px 20px',
@@ -49,25 +94,16 @@ export default function Navbar() {
       >
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
           {/* Logo */}
-          <a href="#" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
-            <BrandIcon />
-            <span style={{ fontSize: 16, fontWeight: 500, color: '#fff', letterSpacing: '-0.01em' }}>React Bits</span>
+          <a href="#home" onClick={handleNavClick('home')} style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
+            <img src="/logo-img-removebg-preview.png" alt="RanVith Logo" width="29" height="29" />
+            <span style={{ fontSize: 16, fontWeight: 500, color: '#fff', letterSpacing: '-0.01em' }}>RanVith Solutions</span>
           </a>
-
-          {/* Desktop Links & CTA */}
-          <div className="hidden sm:flex" style={{ display: 'none' /* Will use media query or classes if possible, but fallback to manual inline for now */ }}>
-            {/* ... we need to inject CSS for this, or use tailwind classes. */}
-          </div>
 
           {/* Actually, let's just use Tailwind classes since this project has Tailwind */}
           <div className="hidden sm:flex items-center gap-6">
-            <div className="flex items-center gap-5">
-              <a href="#" className="text-sm font-medium text-[#8A8F98] hover:text-white transition-colors decoration-transparent">Features</a>
-              <a href="#" className="text-sm font-medium text-[#8A8F98] hover:text-white transition-colors decoration-transparent">About</a>
-            </div>
-            <button className="bg-white text-black border-none rounded-full px-5 py-2.5 text-sm font-semibold cursor-pointer hover:opacity-90 hover:scale-95 transition-all">
-              Sign up
-            </button>
+            <a href="#our-services" onClick={handleNavClick('our-services')} className="text-sm font-medium text-[#8A8F98] hover:text-white transition-colors decoration-transparent">Services</a>
+            <a href="#testimonials" onClick={handleNavClick('testimonials')} className="text-sm font-medium text-[#8A8F98] hover:text-white transition-colors decoration-transparent">Testimonials</a>
+            <a href="#contact" onClick={handleNavClick('contact')} className="text-sm font-medium text-[#8A8F98] hover:text-white transition-colors decoration-transparent">Contact</a>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -80,17 +116,28 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="sm:hidden flex flex-col items-center gap-4 pt-6 pb-4 fade-in">
-            <a href="#" className="text-base font-medium text-[#8A8F98] hover:text-white transition-colors decoration-transparent">Features</a>
-            <a href="#" className="text-base font-medium text-[#8A8F98] hover:text-white transition-colors decoration-transparent">About</a>
-            <button className="w-full bg-white text-black border-none rounded-full px-5 py-2.5 text-sm font-semibold cursor-pointer hover:opacity-90 mt-2">
-              Sign up
-            </button>
-          </div>
-        )}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div 
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+              className="sm:hidden flex flex-col items-center overflow-hidden"
+              style={{ width: '100%' }}
+            >
+              <div className="flex flex-col items-center w-full py-4 gap-4 mt-2" style={{ borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                <a href="#our-services" onClick={handleNavClick('our-services')} className="text-lg font-medium text-[#8A8F98] hover:text-white transition-colors decoration-transparent w-full text-center py-2">Services</a>
+                <a href="#testimonials" onClick={handleNavClick('testimonials')} className="text-lg font-medium text-[#8A8F98] hover:text-white transition-colors decoration-transparent w-full text-center py-2">Testimonials</a>
+                <a href="#contact" onClick={handleNavClick('contact')} className="text-lg font-medium text-[#8A8F98] hover:text-white transition-colors decoration-transparent w-full text-center py-2">Contact</a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
-    </div>
+    </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 
