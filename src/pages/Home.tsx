@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Globe, Smartphone, Bot, Palette, Cloud, Layers, CheckCircle2, X } from 'lucide-react';
@@ -8,7 +9,8 @@ import SplashCursor from '../components/SplashCursor';
 //import WhyChooseUs from '../components/WhyChooseUs';
 import Testimonials from '../components/Testimonials';
 import ContactUs from '../components/ContactUs';
-import Footer from '../components/Footer';
+import SparklesPreview from '../components/sparkles-demo';
+// import Footer from '../components/Footer';
 
 export default function Home() {
   const [showCursor, setShowCursor] = useState(false);
@@ -390,10 +392,14 @@ export default function Home() {
       {/* Testimonials Section */}
       <Testimonials />
 
-      {/* Footer Section */}
+      {/* Sparkles Demo Section (replaces Footer for now) */}
+      <SparklesPreview />
+      
+      {/* Footer Section 
       <div className="snap-start">
         <Footer />
       </div>
+      */}
 
     </div>
   );

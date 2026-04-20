@@ -1,5 +1,3 @@
-import StarBorder from './StarBorder';
-
 const testimonials = [
   {
     id: 1,
@@ -31,19 +29,14 @@ const Testimonials = () => {
         <div className="flex flex-col items-center text-center" style={{ marginBottom: '64px' }}>
           <div style={{ position: 'relative', display: 'inline-block', marginBottom: '24px' }}>
             <h2 className="text-4xl font-extrabold text-white uppercase tracking-wider">What Clients Say About Us</h2>
-            <div style={{ position: 'absolute', bottom: '-12px', left: '50%', transform: 'translateX(-50%)', width: '64px', height: '4px', backgroundColor: '#ffffff', borderRadius: '9999px' }}></div>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-14">
           {testimonials.map((testimonial) => (
-            <StarBorder
+            <div
               key={testimonial.id}
-              as="div"
-              className="w-full h-full shadow-xl shadow-black/50"
-              color={testimonial.color}
-              speed="6s"
-              thickness={2}
+              className="w-full h-full shadow-xl shadow-black/50 bg-[#0F0F1A] border border-[rgba(255,255,255,0.08)] rounded-2xl"
             >
               <div className="flex flex-col h-full text-left p-10 md:p-12">
                 <svg className="w-10 h-10 text-gray-500 mb-8" fill="currentColor" viewBox="0 0 24 24">
@@ -57,7 +50,7 @@ const Testimonials = () => {
                   <p className="text-gray-500 text-base">{testimonial.role}</p>
                 </div>
               </div>
-            </StarBorder>
+            </div>
           ))}
         </div>
       </div>

@@ -36,52 +36,70 @@ const ContactUs = () => {
 
   return (
     <section className="snap-start min-h-screen py-24 px-6 relative z-20 w-full flex flex-col justify-center items-center" id="contact">
-      <div className="w-full max-w-4xl mx-auto">
-        <div className="flex flex-col items-center text-center" style={{ marginBottom: '48px' }}>
-          <div style={{ position: 'relative', display: 'inline-block', marginBottom: '24px' }}>
-            <h2 className="text-4xl font-extrabold text-white">Let's Talk</h2>
-            <div style={{ position: 'absolute', bottom: '-12px', left: '50%', transform: 'translateX(-50%)', width: '64px', height: '4px', backgroundColor: '#ffffff', borderRadius: '9999px' }}></div>
+      <div className="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-stretch">
+        
+        {/* Left Column */}
+        <div className="flex flex-col justify-between text-left py-12 h-full">
+          <div>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-4">Contact us</h2>
+            <p className="text-gray-400 text-lg max-w-md mt-12">
+              Leave your email and we will get back to you within 24 hours
+            </p>
           </div>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto" style={{ marginTop: '16px' }}>
-            Ready to bring your idea to life? Drop us a message, and we'll get back to you shortly.
-          </p>
-        </div>
 
-        <div style={{ ...glassStyle, padding: '48px', overflow: 'hidden' }}>
-          <form style={{ display: 'flex', flexDirection: 'column', gap: '24px' }} onSubmit={(e) => e.preventDefault()}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <label htmlFor="name" style={{ fontSize: '14px', fontWeight: 500, color: '#D1D5DB', marginLeft: '4px' }}>Name</label>
-                <input 
-                  type="text" 
-                  id="name" 
-                  placeholder="John Doe" 
-                  style={inputStyle}
-                  onFocus={handleFocus}
-                  onBlur={handleBlur}
-                  required
-                />
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <label htmlFor="email" style={{ fontSize: '14px', fontWeight: 500, color: '#D1D5DB', marginLeft: '4px' }}>Email</label>
-                <input 
-                  type="email" 
-                  id="email" 
-                  placeholder="john@example.com" 
-                  style={inputStyle}
-                  onFocus={handleFocus}
-                  onBlur={handleBlur}
-                  required
-                />
+          <div className="flex flex-col gap-8">
+            <div className="flex items-center gap-4">
+              <svg className="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+              </svg>
+              <div>
+                <p className="text-gray-400 text-sm mb-1">Email</p>
+                <p className="text-white font-medium">hello@mantine.dev</p>
               </div>
             </div>
-            
+
+            <div className="flex items-center gap-4">
+              <svg className="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              <div>
+                <p className="text-gray-400 text-sm mb-1">Phone</p>
+                <p className="text-white font-medium">+49 (800) 335 35 35</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <svg className="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <div>
+                <p className="text-gray-400 text-sm mb-1">Address</p>
+                <p className="text-white font-medium">844 Morris Park avenue</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <svg className="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+              <div>
+                <p className="text-gray-400 text-sm mb-1">Working hours</p>
+                <p className="text-white font-medium">8 a.m. – 11 p.m.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column */}
+        <div style={{ ...glassStyle, padding: '48px', overflow: 'hidden' }}>
+          <form style={{ display: 'flex', flexDirection: 'column', gap: '24px' }} onSubmit={(e) => e.preventDefault()}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <label htmlFor="subject" style={{ fontSize: '14px', fontWeight: 500, color: '#D1D5DB', marginLeft: '4px' }}>Subject</label>
+              <label htmlFor="email" style={{ fontSize: '14px', fontWeight: 500, color: '#D1D5DB', marginLeft: '4px' }}>Email <span className="text-red-500">*</span></label>
               <input 
-                type="text" 
-                id="subject" 
-                placeholder="How can we help?" 
+                type="email" 
+                id="email" 
+                placeholder="your@email.com" 
                 style={inputStyle}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
@@ -90,11 +108,23 @@ const ContactUs = () => {
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <label htmlFor="message" style={{ fontSize: '14px', fontWeight: 500, color: '#D1D5DB', marginLeft: '4px' }}>Message</label>
+              <label htmlFor="name" style={{ fontSize: '14px', fontWeight: 500, color: '#D1D5DB', marginLeft: '4px' }}>Name</label>
+              <input 
+                type="text" 
+                id="name" 
+                placeholder="John Doe" 
+                style={inputStyle}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+              />
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <label htmlFor="message" style={{ fontSize: '14px', fontWeight: 500, color: '#D1D5DB', marginLeft: '4px' }}>Your message <span className="text-red-500">*</span></label>
               <textarea 
                 id="message" 
                 rows={5} 
-                placeholder="Tell us about your project..." 
+                placeholder="I want to order your goods" 
                 style={{ ...inputStyle, resize: 'vertical' }}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
@@ -102,27 +132,25 @@ const ContactUs = () => {
               ></textarea>
             </div>
 
-            <button
-              type="submit"
-              className=""
-              style={{
-                marginTop: '16px',
-                background: '#fff',
-                color: '#000',
-                border: 'none',
-                borderRadius: '12px',
-                padding: '16px 32px',
-                fontSize: '16px',
-                fontWeight: 600,
-                cursor: 'pointer',
-                transition: 'transform 0.2s, opacity 0.2s',
-                width: '100%',
-              }}
-              onMouseEnter={e => { e.currentTarget.style.opacity = '0.9'; e.currentTarget.style.transform = 'scale(0.98)'; }}
-              onMouseLeave={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.transform = 'scale(1)'; }}
-            >
-              Send Message
-            </button>
+            <div className="flex justify-start sm:justify-end">
+              <button
+                type="submit"
+                className="bg-blue-600 hover:bg-blue-700 text-white"
+                style={{
+                  marginTop: '8px',
+                  border: 'none',
+                  borderRadius: '12px',
+                  padding: '16px 32px',
+                  fontSize: '16px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  transition: 'background-color 0.2s',
+                  width: 'fit-content',
+                }}
+              >
+                Send message
+              </button>
+            </div>
           </form>
         </div>
       </div>
